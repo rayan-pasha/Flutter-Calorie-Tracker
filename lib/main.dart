@@ -24,6 +24,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  DateTime _selectedDate = DateTime.now();
   List<FoodEntry> foodEntries = [];
   int dailyLimit = 2000; // Initialize daily limit to 2000
 
@@ -42,6 +43,44 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    setState(() {
+                      _selectedDate = _selectedDate.subtract(Duration(days: 1));
+                      // Load food entries for the selected date
+                      // You may want to fetch data from a database or other source
+                      // and update foodEntries accordingly.
+                      // For simplicity, we'll assume foodEntries is empty initially.
+                      foodEntries = [];
+                    });
+                  },
+                ),
+                Text(
+                  "${_selectedDate.toLocal()}".split(' ')[0],
+                  style: TextStyle(fontSize: 20),
+                ),
+                IconButton(
+                  icon: Icon(Icons.arrow_forward),
+                  onPressed: () {
+                    setState(() {
+                      _selectedDate = _selectedDate.add(Duration(days: 1));
+                      // Load food entries for the selected date
+                      // You may want to fetch data from a database or other source
+                      // and update foodEntries accordingly.
+                      // For simplicity, we'll assume foodEntries is empty initially.
+                      foodEntries = [];
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
